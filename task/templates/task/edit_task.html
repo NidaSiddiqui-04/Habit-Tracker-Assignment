@@ -1,0 +1,43 @@
+{%extends 'user_profile/base.html'%}
+{% block content%}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card shadow p-4" style="width:15rem; border-radius:12px;">
+    <h3 class="text-center mb-4">Edit Task</h3>
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label class="form-label">Title *</label>
+      </br>{{form.title}}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Description </label>
+      </br><input  class="form">
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Priority * </label>
+      </br>{{form.priority}}
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Due Date *</label>
+      </br> {{form.due_date}}
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" >Save Changes</button>
+      </div>
+    </form>
+
+     
+  </div>
+</div>
+<form  method="post">
+    {%csrf_token%}
+    {{form}}
+     <button type="submit">save</button>
+</form>
+
+{%endblock%}

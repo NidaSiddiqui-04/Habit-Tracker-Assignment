@@ -1,0 +1,13 @@
+{%extends 'user_profile/base.html'%}
+{%block content%}
+<div style="text-align: center; margin-top: 200px;">
+
+<h2>Update Task Status: {{ task.title }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.status.label_tag }} {{ form.status }}
+    <button type="submit">Update</button>
+</form>
+</div>
+{%endblock%}

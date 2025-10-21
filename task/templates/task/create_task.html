@@ -1,0 +1,51 @@
+{%extends 'user_profile/base.html'%}
+{%block content%}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card shadow p-4" style="width: 15rem; border-radius:12px;">
+    <h3 class="text-center mb-4">Add Tasks</h3>
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+         <p aria-required="true">
+            <strong>Title *</strong></br>
+            {{form.title}}
+         </p>
+      </div>
+
+      <div class="mb-3">
+         <p>
+            <strong>Description</strong></br>
+        <input class="form">
+         </p>
+      </div>
+
+      <div class="mb-3">
+        <p>
+            <strong>Priority *</strong></br>
+            {{form.priority}}
+         </p>
+        
+      </div>
+
+      <div class="mb-3">
+         <p>
+            <strong>Due Date *</strong></br>
+            {{form.due_date}}
+         </p>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit">Save</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-3" style="font-size:14px;">
+    
+    </p>
+  </div>
+</div>
+
+
+{%endblock%}

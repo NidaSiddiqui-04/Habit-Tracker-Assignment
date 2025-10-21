@@ -1,0 +1,37 @@
+{%extends 'user_profile/base.html' %}
+{% block content%}
+<div style="margin-left: 400px; margin-right: 300px; margin-top: 100px;">
+    <h2 style="margin-bottom: 20px; font-weight: 700;">Tasks</h2>
+<table class="table table-striped" style="background-color:red;">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Due Date</th>
+
+      <th scope="col">Status</th>
+     
+
+    </tr>
+  </thead>
+  {%for detail in view%}
+  <tbody>
+    <tr>
+      <th scope="row">{{detail.title}}</th>
+      <td>{{detail.description}}</td>
+
+      <td>{{detail.priority}}</td>
+      <td>{{detail.due_date}}</td>
+      
+      <td>{{detail.status}}</td>
+    
+
+    </tr>
+  </tbody>
+  {%endfor%}
+</table>
+ 
+</div>
+
+{%endblock%}
