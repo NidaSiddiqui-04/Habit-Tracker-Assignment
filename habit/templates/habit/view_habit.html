@@ -1,0 +1,31 @@
+
+ {% extends "user_profile/base.html" %}
+
+{% block content %}
+<div style="text-align: center;">
+<h2>{{ user.first_name }}'s Habits</h2>
+<div style="margin-left: 100px; margin-right: 100px;margin-top: 100px;">
+<table class="table table-bordered">
+    <tr>
+        <th>Habit Name</th>
+        <th>Frequency</th>
+        <th>Target</th>
+        
+    </tr>
+    {% for habit in habits %}
+    <tr>
+        <td>{{ habit.title }}</td>
+        <td>{{ habit.frequency }}</td>
+        <td>{{ habit.target }}</td>
+
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">No habits found for this user.</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<a href="{% url 'habit:admin_dashboard' %}">Back to Admin Dashboard</a>
+</div>
+{% endblock %}

@@ -1,0 +1,118 @@
+
+{%extends 'user_profile/base.html'%}
+{%block content%}
+<div style="margin-left: 400px;">
+  <h1>Welcome {{user.username}}!</h1>
+  <h4>{{today}}</h4>
+</div>
+<div style="margin-left: 400px; margin-top: 50px;">
+
+{%if habit%}
+<h3>Daily Habits</h3>
+
+<div class="row text-center">
+    {%for habit,done in daily_habits%}
+  <div class="col-md-2" >
+    <div class="card text-black mb-3">
+      <div class="card-body" style="background-color: rgb(174, 214, 207);">
+        <p><strong>Title:</strong> {{habit.title}}</p>
+        <p><strong>Targets:</strong> {{habit.target}}</p>
+         
+        {%if done%}
+           ✔️ done
+        
+        {%else%}
+           <form method="post" action="{% url 'habit:habit_status' habit.id %}">
+            {%csrf_token%}
+            <button type="submit">Mark as Done</button>
+           </form>
+        {%endif%}
+        
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+</div>
+</div>
+
+<div style="margin-left: 400px;margin-top: 50px;">
+    <h3>Weekly Habits</h3>
+
+  <div class="row text-center">
+    {%for habit,done in weekly_habits%}
+    
+  <div class="col-md-2" >
+    <div class="card text-black mb-3">
+      <div class="card-body" style="background-color: rgb(174, 214, 207);">
+        <p><strong>Title:</strong> {{habit.title}}</p>
+        <p><strong>Targets:</strong> {{habit.target}}</p>
+        {%if done%}
+           ✔️ done
+      
+        {%else%}
+        
+           <form method="post" action="{%url 'habit:habit_status' habit.id %}">
+            {%csrf_token%}
+            <button type="submit" >Mark as Done</button>
+           </form>
+           
+           {%endif%}
+
+         
+      </div>
+    </div>
+  </div>
+  
+  {%endfor%}
+</div>
+    
+    </div>
+</div>
+{% else %}
+  <p>No habits yet. <a href="{% url 'habit:create_habit' %}">Create one</a></p>
+{% endif %}
+</div>
+ 
+<div style="margin-left: 400px;width: 800px;">
+    <h3>Pending task</h3>
+
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Priority</th>
+      <th scope="col">Due Date</th>
+      <th  scope="col">Status</th>
+      <th scope="col">✏️/❌</th>
+    </tr>
+  </thead>
+  {% for tasks in task%}
+  <tbody>
+    <tr>
+      <th >{{tasks.title}}</th>
+      <td>{{tasks.description}}</td>
+      <td>{{tasks.priority}}</td>
+      <td>{{tasks.due_date}}</td>
+      <td><a href="{%url 'task:done' tasks.id%}" class="nav-link" style="background-color:rgb(174, 214, 207); text-align: center;" >{{tasks.status}}</a></td>
+      <td ><div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    ...
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{%url 'task:edit_task' tasks.id%}">edit</a></li>
+    <li><a class="dropdown-item" href="{%url 'task:delete_task' tasks.id%}">delete</a></li>
+    
+  </ul>
+</div></td>
+    </tr>
+  </tbody>
+ {%endfor%} 
+</table>
+
+</div>
+
+</div>
+{%endblock%}
+

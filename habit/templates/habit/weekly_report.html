@@ -1,0 +1,88 @@
+{% extends 'user_profile/base.html' %}
+
+{% block content %}
+<div class="container mt-4" style="text-align: center;">
+  <h2>Weekly Report ({{ start_of_week }} - {{ end_of_week }})</h2>
+
+  <h3>Tasks</h3>
+  <p>✅ Completed: {{ completed_tasks.count }} | ❌ Pending: {{ pending_tasks.count }}</p>
+  <div style="width: 400px;margin-left: 400px; ">
+  <canvas id="taskChart" width="400" height="200"></canvas>
+  </div>
+  <h3 class="mt-5">Habits</h3>
+  <div style="margin-left: 400px;">
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Habit</th>
+        <th>Completed(days)</th>
+        <th>Targets (in a week)</th>
+        <th>% Achieved</th>
+        <th>streaks</th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for h in habit_report %}
+      <tr>
+        <td>{{ h.habit }}</td>
+        <td>{{ h.completed }}</td>
+        <td>{{ h.target }}</td>
+        <td>{{ h.percentage }}%</td>
+        <td>{% if h.streaks > 0 %}
+             🔥{{h.streaks}}
+             {%else%}
+             ❄️{{h.streaks}}
+             {%endif%}
+        </td>
+         
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+<div style="width: 400px;margin-left: 400px;">
+  <canvas id="habitChart" width="400" height="200"></canvas>
+</div>
+</div>
+
+<!-- Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Tasks per day (Bar chart)
+  const taskCtx = document.getElementById('taskChart');
+  new Chart(taskCtx, {
+    type: 'line',
+    data: {
+      labels: [{% for d in tasks_per_day %}'{{ d.day }}',{% endfor %}],
+      datasets: [{
+        label: 'Completed Tasks',
+        data: [{% for d in tasks_per_day %}{{ d.count }},{% endfor %}],
+        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+      }]
+    },
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  });
+
+  // Habits % achieved (Pie chart)
+  const habitCtx = document.getElementById('habitChart');
+  new Chart(habitCtx, {
+    type: 'line',
+    data: {
+      labels: [{% for h in habit_report %}'{{ h.habit}}',{% endfor %}],
+      datasets: [{
+        label:'progress',
+        data: [{% for h in habit_report %}{{ h.percentage }},{% endfor %}],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.7)',
+        ]
+      }]
+    }
+  });
+</script>
+{% endblock %}

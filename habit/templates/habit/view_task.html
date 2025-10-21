@@ -1,0 +1,30 @@
+{% extends "user_profile/base.html" %}
+
+{% block content %}
+<div style="text-align: center;">
+<h2>{{ user.first_name }}'s Habits</h2>
+<div style="margin-left: 100px; margin-right: 100px;margin-top: 100px;">
+<table class="table table-bordered">
+    <tr>
+        <th>Task Name</th>
+        <th>description</th>
+        <th>Due Date</th>
+        <th>Status</th>
+    </tr>
+    {% for task in tasks %}
+    <tr>
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.due_date }}</td>
+        <td>{{ task.status }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="4">No tasks found for this user.</td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+<a href="{% url 'habit:admin_dashboard' %}">Back to Admin Dashboard</a>
+</div>
+{% endblock %}

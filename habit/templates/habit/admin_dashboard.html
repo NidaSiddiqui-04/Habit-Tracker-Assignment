@@ -1,0 +1,53 @@
+{% extends 'user_profile/base.html' %}
+
+{% block content %}
+<h2>All Users</h2>
+ 
+<table class="table table-stripped">
+    <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Habits</th>
+        <th>Tasks</th>
+        <th>Status</th>
+        <th>Actions</th>
+       <!--- <th>Actions</th>-->
+    </tr>
+    {% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{user.first_name}}</td>
+        <td>{{user.last_name}}</td>
+        <td>{{ user.email }}</td>
+        
+        <td><a class="nav-link" href="{%url 'habit:habit_view' user.id %}"> view habits</a></td>
+        <td><a class="nav-link" href="{%url 'habit:task_view' user.id%}">view tasks</a></td>
+       <td>
+            
+            {% if user.is_active != user.is_superuser %}
+               Active
+             {%elif user.is_active%} 
+                Admin(Active)
+            {% else %}
+                Deactivated
+            {% endif %}
+        </td>
+        <td>
+            {% if user.is_active != user.is_superuser %}
+                <a href="{%url 'habit:deactivate_user' user.id %}">Deactivate</a>
+
+             {%elif user.is_active%}   
+             ----
+            {% else %}
+                <em>Inactive</em>
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<div style="margin-left: 1450px;background-color:rgb(174, 214, 207); font-weight: 700;text-align: center;">
+    <a class="nav-link" href="{%url 'user_profile:logout'%}">Logout</a>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{%extends 'user_profile/base.html'%}
+
+{%block content%}
+<form method='POST'>
+
+{% csrf_token  %}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card shadow p-4" style="width: 15rem; border-radius:12px;">
+    <h3 class="text-center mb-4">Add Habits</h3>
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label class="form-label">Title *</label></br>
+        {{form.title}}
+        
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Frequency</label></br>
+        {{form.frequency}}
+        
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Target</label></br>
+        {{form.target}}
+      </div>
+
+       
+
+      <div class="d-grid">
+        <button type="submit" >Save</button>
+      </div>
+    </form>
+
+     
+  </div>
+</div>
+
+
+</form>
+{%endblock%}
