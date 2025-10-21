@@ -1,0 +1,25 @@
+{%extends 'user_profile/base.html'%}
+{%block content%}
+
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card shadow p-4" style="width: 18rem; border-radius:12px;">
+    <h3 class="text-center mb-4">Edit Profile</h3>
+    <form method="post">
+      {% csrf_token %}
+      
+      <p><strong>First Name</strong> </br>{{form.first_name}}</p>
+      <p><strong>Last Name</strong></br>{{form.last_name}}</p>
+      <p><strong>Age:</strong></br>{{form.age}}</p>
+  
+      <p><strong>Daily Goals:</strong></br>{{form.daily_goals}}</p>
+
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+{%endblock%}

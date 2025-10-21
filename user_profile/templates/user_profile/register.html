@@ -1,0 +1,71 @@
+
+{%extends 'user_profile/base.html'%}
+{%block content%}
+
+ <div class="container d-flex justify-content-center align-items-center" style="min-height: 90vh;">
+  <div class="card shadow p-4" style="width: 22rem; border-radius:12px;">
+    <h3 class="text-center mb-4">Sign Up</h3>
+    <form method="post">
+      {% csrf_token %}
+    
+     
+ {% if form.errors %}
+
+    
+      {% for err,error in form.errors.items %}
+      <ul style="background-color: crimson;">
+      {%for error_list in error%}
+        <li >{{ error_list }}</li>
+        {%endfor%}
+    </ul>
+      {% endfor %}
+    
+
+  {% endif %}
+
+
+
+      
+      <div class="mb-3">
+        <label class="form-label">First Name *</label>
+        <input type="name" name="first_name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last Name *</label>
+        <input type="name" name="last_name" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Username *</label>
+        <input type="name" name="username" class="form-control" required>
+      </div>
+    
+      <div class="mb-3">
+        <label class="form-label">Email *</label>
+        <input type="name" name="email" class="form-control" required>
+      </div>
+    
+      
+      
+       
+      <div class="mb-3">
+        <label class="form-label">Password * </label>
+        <input type="password" name="password1" class="form-control" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Confirm Password *</label>
+        <input type="password" name="password2" class="form-control" required>
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" style="background-color:rgb(174, 214, 207);">Sign Up</button>
+      </div>
+    </form>
+
+    <p class="text-center mt-3" style="font-size:14px;">
+      Already have an account? <a href="{% url 'user_profile:login' %}">Login here</a>
+    </p>
+  </div>
+</div>
+{%endblock%}

@@ -1,0 +1,20 @@
+{% extends 'user_profile/base.html' %}
+
+{% block content %}
+<div class="container mt-4 " style="margin-left: 400px;">
+  <h2>User Profile</h2>
+  {%for view in profile%}
+  <div style="margin-right: 800px;">
+  <ul class="list-group">
+
+    <li class="list-group-item"><strong>Name:</strong> {{ view.first_name }} {{view.last_name}}</li>
+    <li class="list-group-item"><strong>Age:</strong> {{ view.age }}</li>
+    
+    <li class="list-group-item"><strong>Daily Goals:</strong> {{ view.daily_goals }}</li>
+  </ul>
+  </div>
+  {%endfor%}
+
+  <a href="{% url 'user_profile:add_user_profile' %}" class="btn btn-primary mt-3">Edit Profile</a>
+</div>
+{% endblock %}
